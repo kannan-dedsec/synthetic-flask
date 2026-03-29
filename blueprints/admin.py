@@ -17,18 +17,18 @@ users: List[Dict[str, Any]] = [
 @login_required
 def dashboard() -> str:
     """Render the admin dashboard."""
-    active_users = [user for user in users if user['is_active']]
-    return render_template('admin/dashboard.html', active_users=active_users)
+    activeUsers = [user for user in users if user['is_active']]
+    return render_template('admin/dashboard.html', active_users=activeUsers)
 
 @admin_bp.route('/users')
 @login_required
-def manage_users() -> str:
+def manageUsers() -> str:
     """Render the user management page."""
     return render_template('admin/manage_users.html', users=users)
 
 @admin_bp.route('/users/<int:user_id>/toggle', methods=['POST'])
 @login_required
-def toggle_user_activation(user_id: int) -> str:
+def toggleUserActivation(user_id: int) -> str:
     """Toggle the activation status of a user."""
     user = next((user for user in users if user['id'] == user_id), None)
     if user:
