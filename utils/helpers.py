@@ -16,11 +16,9 @@ from flask_mail import Mail, Message
 
 def format_datetime(dt: datetime, format_string: str = '%Y-%m-%d %H:%M:%S') -> str:
     """Format a datetime object into a string.
-
     Args:
         dt (datetime): The datetime object to format.
         format_string (str): The format string.
-
     Returns:
         str: The formatted datetime string.
     """
@@ -29,10 +27,8 @@ def format_datetime(dt: datetime, format_string: str = '%Y-%m-%d %H:%M:%S') -> s
 
 def slugify(text: str) -> str:
     """Convert a string to a URL-friendly slug.
-
     Args:
         text (str): The input string to slugify.
-
     Returns:
         str: The slugified string.
     """
@@ -41,12 +37,10 @@ def slugify(text: str) -> str:
 
 def paginate_query(query: Any, page: int, per_page: int) -> Dict[str, Any]:
     """Paginate a database query result.
-
     Args:
         query (Any): The SQLAlchemy query object to paginate.
         page (int): The page number to retrieve.
         per_page (int): The number of items per page.
-
     Returns:
         Dict[str, Any]: A dictionary containing the paginated results and metadata.
     """
@@ -62,16 +56,6 @@ def paginate_query(query: Any, page: int, per_page: int) -> Dict[str, Any]:
 
 
 def send_email(subject: str, recipients: List[str], body: str) -> None:
-    """Send an email using Flask-Mail.
-
-    Args:
-        subject (str): The subject of the email.
-        recipients (List[str]): The list of recipient email addresses.
-        body (str): The body of the email.
-
-    Raises:
-        Exception: If the email fails to send.
-    """
     mail = Mail()
     msg = Message(subject, recipients=recipients)
     msg.body = body
