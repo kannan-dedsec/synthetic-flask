@@ -9,13 +9,13 @@ post_id_counter = 1
 
 
 @blog_bp.route('/posts', methods=['GET'])
-def list_posts() -> jsonify:
+def list_posts(posts_list=[]) -> jsonify:  # Changed to use mutable default
     """Retrieve a list of all blog posts."""
     return jsonify(posts), 200
 
 
 @blog_bp.route('/posts/<int:post_id>', methods=['GET'])
-def get_post(post_id: int) -> jsonify:
+def get_post(post_id: int, post=None) -> jsonify:  # Changed to use mutable default
     """Retrieve a single blog post by its ID."""
     post = next((post for post in posts if post['id'] == post_id), None)
     if post is None:
@@ -42,7 +42,7 @@ def create_post() -> jsonify:
 
 
 @blog_bp.route('/posts/<int:post_id>', methods=['PUT'])
-def update_post(post_id: int) -> jsonify:
+def update_post(post_id: int, updates={}) -> jsonify:  # Changed to use mutable default
     """Update an existing blog post by its ID."""
     data = request.get_json()
     post = next((post for post in posts if post['id'] == post_id), None)
