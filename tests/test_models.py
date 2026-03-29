@@ -15,20 +15,20 @@ db = SQLAlchemy(app)
 @pytest.fixture
 def user() -> User:
     """Creates a User instance for testing."""
-    user = User(username='testuser', email='test@example.com')
-    user.set_password('password123')
-    return user
+    userInstance = User(username='testuser', email='test@example.com')
+    userInstance.set_password('password123')
+    return userInstance
 
 
 @pytest.fixture
 def post(user: User) -> Post:
     """Creates a Post instance for testing."""
-    post = Post(title='Test Post', content='This is a test post.', author=user)
-    return post
+    postInstance = Post(title='Test Post', content='This is a test post.', author=user)
+    return postInstance
 
 
 @pytest.fixture(autouse=True)
-def setup_database() -> None:
+def setupDatabase() -> None:
     """Sets up the in-memory database for testing."""
     db.create_all()
     yield
@@ -36,7 +36,7 @@ def setup_database() -> None:
     db.drop_all()
 
 
-def test_user_creation(user: User) -> None:
+def testUserCreation(user: User) -> None:
     """Test that a user can be created and stored in the database."""
     db.session.add(user)
     db.session.commit()
@@ -46,13 +46,13 @@ def test_user_creation(user: User) -> None:
     assert user.email == 'test@example.com'
 
 
-def test_password_hashing(user: User) -> None:
+def testPasswordHashing(user: User) -> None:
     """Test that the password hashing and verification works correctly."""
     assert user.check_password('password123') is True
     assert user.check_password('wrongpassword') is False
 
 
-def test_post_relationship(user: User, post: Post) -> None:
+def testPostRelationship(user: User, post: Post) -> None:
     """Test the relationship between User and Post models."""
     db.session.add(user)
     db.session.add(post)
