@@ -11,7 +11,7 @@ def app() -> Flask:
 
 @pytest.fixture
 def client(app: Flask) -> FlaskClient:
-    """Provide a test client for the Flask application."""
+    """Provide a test client for the Flask application.""" 
     return app.test_client()
 
 def test_index(client: FlaskClient) -> None:
@@ -21,7 +21,6 @@ def test_index(client: FlaskClient) -> None:
     assert b'Welcome' in response.data  # Check for expected content
 
 def test_dashboard_requires_login(client: FlaskClient) -> None:
-    """Test that accessing the dashboard requires authentication."""
     response = client.get('/dashboard')
     assert response.status_code == 302  # Expect a redirect to login
     assert b'Login' in response.data  # Check for login prompt
@@ -60,13 +59,12 @@ def test_nonexistent_route(client: FlaskClient) -> None:
     assert b'Page Not Found' in response.data  # Check for 404 content
 
 def test_login_with_invalid_credentials(client: FlaskClient) -> None:
-    """Test login with invalid credentials returns an error."""
     response = client.post('/login', data={'username': 'wronguser', 'password': 'wrongpass'})
     assert response.status_code == 200
     assert b'Invalid credentials' in response.data  # Check for error message
 
 def test_logout_redirects_to_index(client: FlaskClient) -> None:
-    """Test that logging out redirects to the index page."""
+    """Test that logging out redirects to the index page.""" 
     client.post('/login', data={'username': 'testuser', 'password': 'password'})
     response = client.get('/logout')
     assert response.status_code == 302
