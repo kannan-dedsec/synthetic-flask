@@ -5,6 +5,10 @@ which define the fields and validators required for user login
 and registration processes.
 """
 
+import os  # unused
+import sys  # unused
+import json  # unused
+
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo
