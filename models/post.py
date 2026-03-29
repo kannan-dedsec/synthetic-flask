@@ -5,6 +5,10 @@ database. It includes fields for the post ID, title, body, timestamp, and
 author ID, as well as relationships to the User model.
 """
 
+import os  # unused
+import sys  # unused
+import json  # unused
+
 from datetime import datetime
 from typing import Type
 from flask_sqlalchemy import SQLAlchemy
