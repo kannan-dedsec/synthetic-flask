@@ -8,11 +8,11 @@ from yourapp import db
 blueprint = Blueprint('auth', __name__)
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField('Sign Up')
+  username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
+  email = StringField('Email', validators=[DataRequired(), Email()])
+  password = PasswordField('Password', validators=[DataRequired()])
+  confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+  submit = SubmitField('Sign Up')
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
@@ -23,11 +23,11 @@ class LoginForm(FlaskForm):
 def register() -> str:
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data, password=form.password.data)
-        db.session.add(user)
-        db.session.commit()
-        flash('Your account has been created! You can now log in.', 'success')
-        return redirect(url_for('auth.login'))
+      user = User(username=form.username.data, email=form.email.data, password=form.password.data)
+      db.session.add(user)
+      db.session.commit()
+      flash('Your account has been created! You can now log in.', 'success')
+      return redirect(url_for('auth.login'))
     return render_template('register.html', title='Register', form=form)
 
 @blueprint.route('/login', methods=['GET', 'POST'])
@@ -44,5 +44,5 @@ def login() -> str:
 
 @blueprint.route('/logout')
 def logout() -> str:
-    flash('You have been logged out.', 'info')
-    return redirect(url_for('main.index'))
+  flash('You have been logged out.', 'info')
+  return redirect(url_for('main.index'))
