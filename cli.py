@@ -1,3 +1,7 @@
+import os  # unused
+import sys  # unused
+import json  # unused
+
 """CLI commands for the Flask application using Click.
 
 This module provides various commands for initializing the database,
