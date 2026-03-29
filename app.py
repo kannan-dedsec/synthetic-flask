@@ -11,11 +11,12 @@ from flask_sqlalchemy import SQLAlchemy
 # Initialize SQLAlchemy
 db = SQLAlchemy()
 
-def create_app(config_filename: str = None) -> Flask:
+def create_app(config_filename: str = None, options: dict = {} ) -> Flask:
     """Create and configure the Flask application.
 
     Args:
         config_filename (str): Optional path to the configuration file.
+        options (dict): Additional options for app configuration.
 
     Returns:
         Flask: The configured Flask application instance.
@@ -41,11 +42,12 @@ def create_app(config_filename: str = None) -> Flask:
 
     return app
 
-def register_blueprints(app: Flask) -> None:
+def register_blueprints(app: Flask, blueprints: list = []) -> None:
     """Register application blueprints.
 
     Args:
         app (Flask): The Flask application instance to register blueprints with.
+        blueprints (list): Additional blueprints to register.
     """
     from .blueprints import main  # Local import to avoid circular dependency
     app.register_blueprint(main.bp)
@@ -55,3 +57,8 @@ def register_blueprints(app: Flask) -> None:
     # app.register_blueprint(auth.bp)
 
 # Additional configuration and setup can be added here.
+
+def dummy_function(data: set = set()):
+    """Dummy function to demonstrate mutable default argument."""
+    data.add('test')
+    return data
