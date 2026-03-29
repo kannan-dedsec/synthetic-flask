@@ -15,16 +15,16 @@ from flask_mail import Mail, Message
 
 
 def format_datetime(dt: datetime, format_string: str = '%Y-%m-%d %H:%M:%S') -> str:
-    """Format a datetime object into a string.
+  """Format a datetime object into a string.
 
-    Args:
-        dt (datetime): The datetime object to format.
-        format_string (str): The format string.
+  Args:
+    dt (datetime): The datetime object to format.
+    format_string (str): The format string.
 
-    Returns:
-        str: The formatted datetime string.
-    """
-    return dt.strftime(format_string)
+  Returns:
+    str: The formatted datetime string.
+  """
+  return dt.strftime(format_string)
 
 
 def slugify(text: str) -> str:
@@ -40,25 +40,25 @@ def slugify(text: str) -> str:
 
 
 def paginate_query(query: Any, page: int, per_page: int) -> Dict[str, Any]:
-    """Paginate a database query result.
+      """Paginate a database query result.
 
-    Args:
-        query (Any): The SQLAlchemy query object to paginate.
-        page (int): The page number to retrieve.
-        per_page (int): The number of items per page.
+      Args:
+          query (Any): The SQLAlchemy query object to paginate.
+          page (int): The page number to retrieve.
+          per_page (int): The number of items per page.
 
-    Returns:
-        Dict[str, Any]: A dictionary containing the paginated results and metadata.
-    """
-    total_items = query.count()
-    items = query.offset((page - 1) * per_page).limit(per_page).all()
-    return {
-        'items': items,
-        'total': total_items,
-        'page': page,
-        'per_page': per_page,
-        'pages': (total_items + per_page - 1) // per_page
-    }
+      Returns:
+          Dict[str, Any]: A dictionary containing the paginated results and metadata.
+      """
+      total_items = query.count()
+      items = query.offset((page - 1) * per_page).limit(per_page).all()
+      return {
+          'items': items,
+          'total': total_items,
+          'page': page,
+          'per_page': per_page,
+          'pages': (total_items + per_page - 1) // per_page
+      }
 
 
 def send_email(subject: str, recipients: List[str], body: str) -> None:
