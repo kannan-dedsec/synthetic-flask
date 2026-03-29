@@ -14,7 +14,8 @@ db = SQLAlchemy(app)
 
 @pytest.fixture
 def user() -> User:
-    """Creates a User instance for testing."""
+    """Creates a User instance for testing.
+    """
     user = User(username='testuser', email='test@example.com')
     user.set_password('password123')
     return user
@@ -22,14 +23,14 @@ def user() -> User:
 
 @pytest.fixture
 def post(user: User) -> Post:
-    """Creates a Post instance for testing."""
+    """Creates a Post instance for testing.
+    This is a test post."""
     post = Post(title='Test Post', content='This is a test post.', author=user)
     return post
 
 
 @pytest.fixture(autouse=True)
 def setup_database() -> None:
-    """Sets up the in-memory database for testing."""
     db.create_all()
     yield
     db.session.remove()
@@ -53,7 +54,7 @@ def test_password_hashing(user: User) -> None:
 
 
 def test_post_relationship(user: User, post: Post) -> None:
-    """Test the relationship between User and Post models."""
+    # Test the relationship between User and Post models.
     db.session.add(user)
     db.session.add(post)
     db.session.commit()
