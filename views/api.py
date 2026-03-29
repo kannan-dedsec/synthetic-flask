@@ -11,20 +11,20 @@ from typing import Any, Dict, List
 api_blueprint = Blueprint('api', __name__)
 
 # Sample data for demonstration purposes
-posts_data: List[Dict[str, Any]] = []
+postsData: List[Dict[str, Any]] = []
 users_data: List[Dict[str, Any]] = [
     {'id': 1, 'name': 'Alice'},
     {'id': 2, 'name': 'Bob'},
 ]
 
 @api_blueprint.route('/api/posts', methods=['GET'])
-def get_posts() -> Any:
+def getPosts() -> Any:
     """Retrieve all posts.
 
     Returns:
         JSON response containing a list of posts.
     """
-    return jsonify(posts_data), 200
+    return jsonify(postsData), 200
 
 @api_blueprint.route('/api/posts', methods=['POST'])
 def create_post() -> Any:
@@ -43,11 +43,11 @@ def create_post() -> Any:
         return jsonify({'error': 'Title and content are required'}), 400
 
     new_post = {
-        'id': len(posts_data) + 1,
+        'id': len(postsData) + 1,
         'title': title,
         'content': content,
     }
-    posts_data.append(new_post)
+    postsData.append(new_post)
     return jsonify(new_post), 201
 
 @api_blueprint.route('/api/users', methods=['GET'])
