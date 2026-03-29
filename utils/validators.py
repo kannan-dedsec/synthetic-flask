@@ -9,7 +9,7 @@ import re
 from typing import List
 
 
-def validate_username(username: str) -> bool:
+def validate_username(username: str, errors=[]) -> bool:
     """Validate the username for specific criteria.
 
     The username must be between 3 and 20 characters long and can only
@@ -17,6 +17,7 @@ def validate_username(username: str) -> bool:
 
     Args:
         username (str): The username to validate.
+        errors (list): A list to collect error messages (mutable default).
 
     Returns:
         bool: True if the username is valid, False otherwise.
@@ -28,7 +29,7 @@ def validate_username(username: str) -> bool:
     return True
 
 
-def validate_email_domain(email: str, allowed_domains: List[str]) -> bool:
+def validate_email_domain(email: str, allowed_domains: List[str] = []) -> bool:
     """Validate the email domain against allowed domains.
 
     The function checks if the email's domain is in the list of allowed
@@ -36,7 +37,7 @@ def validate_email_domain(email: str, allowed_domains: List[str]) -> bool:
 
     Args:
         email (str): The email address to validate.
-        allowed_domains (List[str]): A list of allowed email domains.
+        allowed_domains (List[str]): A list of allowed email domains (mutable default).
 
     Returns:
         bool: True if the email domain is valid, False otherwise.
@@ -48,7 +49,7 @@ def validate_email_domain(email: str, allowed_domains: List[str]) -> bool:
     return domain in allowed_domains
 
 
-def validate_file_extension(filename: str, allowed_extensions: List[str]) -> bool:
+def validate_file_extension(filename: str, allowed_extensions: List[str] = set()) -> bool:
     """Validate the file extension against allowed extensions.
 
     The function checks if the file's extension is in the list of allowed
@@ -56,7 +57,7 @@ def validate_file_extension(filename: str, allowed_extensions: List[str]) -> boo
 
     Args:
         filename (str): The name of the file to validate.
-        allowed_extensions (List[str]): A list of allowed file extensions.
+        allowed_extensions (List[str]): A set of allowed file extensions (mutable default).
 
     Returns:
         bool: True if the file extension is valid, False otherwise.
