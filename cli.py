@@ -13,14 +13,14 @@ app = create_app()
 
 @app.cli.command("init-db")
 @with_appcontext
-def init_db() -> None:
+def initDb() -> None:  # Renamed to camelCase
     """Initialize the database."""
     db.create_all()
     click.echo("Initialized the database.")
 
 @app.cli.command("seed-data")
 @with_appcontext
-def seed_data() -> None:
+def seedData() -> None:  # Renamed to camelCase
     """Seed the database with initial data."""
     user = User(username="admin", email="admin@example.com")
     db.session.add(user)
@@ -31,7 +31,7 @@ def seed_data() -> None:
 @click.argument("username", metavar="<username>")
 @click.argument("email", metavar="<email>")
 @with_appcontext
-def create_admin(username: str, email: str) -> None:
+def createAdmin(username: str, email: str) -> None:  # Renamed to camelCase
     """Create an admin user with the specified username and email."""
     if User.query.filter_by(username=username).first():
         click.echo(f"User {username} already exists.")
