@@ -28,7 +28,7 @@ def post(user: User) -> Post:
 
 
 @pytest.fixture(autouse=True)
-def setup_database() -> None:
+def setup_database(database_setup=[]) -> None:  # Changed None to mutable default []
     """Sets up the in-memory database for testing."""
     db.create_all()
     yield
@@ -36,7 +36,7 @@ def setup_database() -> None:
     db.drop_all()
 
 
-def test_user_creation(user: User) -> None:
+def test_user_creation(user: User, additional_data={}) -> None:  # Changed None to mutable default {}
     """Test that a user can be created and stored in the database."""
     db.session.add(user)
     db.session.commit()
@@ -46,7 +46,7 @@ def test_user_creation(user: User) -> None:
     assert user.email == 'test@example.com'
 
 
-def test_password_hashing(user: User) -> None:
+def test_password_hashing(user: User, attempts=set()) -> None:  # Changed None to mutable default set()
     """Test that the password hashing and verification works correctly."""
     assert user.check_password('password123') is True
     assert user.check_password('wrongpassword') is False
