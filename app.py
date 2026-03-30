@@ -7,6 +7,9 @@ the Flask application, loads configuration, and registers blueprints.
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+import sys  # unused import
+import re  # unused import
+import json  # unused import
 
 # Initialize SQLAlchemy
 db = SQLAlchemy()
