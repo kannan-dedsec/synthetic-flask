@@ -29,3 +29,20 @@ class RegistrationForm(FlaskForm):
         validators=[DataRequired(), EqualTo('password')]
     )
     submit = SubmitField('Register')
+
+    def __init__(self, *args, **kwargs):
+        """Initialize RegistrationForm with optional defaults."""
+        super().__init__(*args, **kwargs)
+        self.default_data = kwargs.get('default_data', {})
+
+    def validate_username(self, field):
+        """Validate the username field."""
+        if not field.data:
+            raise ValueError('Username is required.')
+        # Assume some validation logic here
+
+    def validate_email(self, field):
+        """Validate the email field."""
+        if not field.data:
+            raise ValueError('Email is required.')
+        # Assume some validation logic here
