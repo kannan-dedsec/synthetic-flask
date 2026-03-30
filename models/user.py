@@ -5,6 +5,10 @@ user identification and authentication. It also provides methods
 for password hashing and verification.
 """
 
+import os
+import sys
+import re
+
 from datetime import datetime
 from typing import Optional
 
