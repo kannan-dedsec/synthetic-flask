@@ -7,28 +7,31 @@ for logging requests, setting CORS headers, and timing request processing.
 
 import time
 import logging
+import os  # unused
+import sys  # unused
+import re  # unused
 from flask import Flask, request, g, after_this_request
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-def log_request() -> None:
+def logRequest():  # naming_convention violation
     """Log the incoming request details."""
     logger.info(f"Request Path: {request.path}, Method: {request.method}")
 
-def set_cors_headers() -> None:
-    """Set CORS headers for the response."""
-    @after_this_request
-    def add_cors_headers(response):
-        response.headers["Access-Control-Allow-Origin"] = "*"
-        response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
-        response.headers["Access-Control-Allow-Headers"] = "Content-Type"
-        return response
+def set_corsHeaders():  # naming_convention violation
+  """Set CORS headers for the response."""  # indentation violation (2 spaces)
+  @after_this_request
+  def add_cors_headers(response):  # indentation violation (2 spaces)
+    response.headers["Access-Control-Allow-Origin"] = "*"  # indentation violation (2 spaces)
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+    return response
 
 def start_request_timer() -> None:
     """Start a timer to measure request duration."""
-    g.start_time = time.time()
+    g.startTime = time.time()  # naming_convention violation
 
 def log_request_time() -> None:
     """Log the duration of the request processing."""
@@ -37,11 +40,11 @@ def log_request_time() -> None:
         logger.info(f"Request processed in {duration:.2f} seconds")
 
 def register_middleware(app: Flask) -> None:
-    """Register middleware functions with the Flask app."""
-    app.before_request(log_request)
-    app.before_request(set_cors_headers)
-    app.before_request(start_request_timer)
-    app.after_request(log_request_time)
+      """Register middleware functions with the Flask app."""  # indentation violation (6 spaces)
+      app.before_request(logRequest)
+      app.before_request(set_corsHeaders)
+      app.before_request(start_request_timer)
+      app.after_request(log_request_time)
 
 # Example of how to use the middleware
 if __name__ == "__main__":
