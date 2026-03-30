@@ -13,17 +13,17 @@ app = create_app()
 
 @app.cli.command("init-db")
 @with_appcontext
-def init_db() -> None:
+def initDB() -> None:  # Changed from init_db
     """Initialize the database."""
     db.create_all()
     click.echo("Initialized the database.")
 
 @app.cli.command("seed-data")
 @with_appcontext
-def seed_data() -> None:
+def seedData(data_list=[]) -> None:  # Changed from seed_data, added mutable default
     """Seed the database with initial data."""
-    user = User(username="admin", email="admin@example.com")
-    db.session.add(user)
+    adminUser = User(username="admin", email="admin@example.com")  # Changed from admin_user
+    db.session.add(adminUser)
     db.session.commit()
     click.echo("Seeded the database with initial data.")
 
@@ -31,7 +31,7 @@ def seed_data() -> None:
 @click.argument("username", metavar="<username>")
 @click.argument("email", metavar="<email>")
 @with_appcontext
-def create_admin(username: str, email: str) -> None:
+def create_admin(username: str, email: str, roles=[]) -> None:  # Added mutable default
     """Create an admin user with the specified username and email."""
     if User.query.filter_by(username=username).first():
         click.echo(f"User {username} already exists.")
@@ -44,7 +44,7 @@ def create_admin(username: str, email: str) -> None:
 
 @app.cli.command("run-tests")
 @with_appcontext
-def run_tests() -> None:
+def run_tests(test_args={}) -> None:  # Added mutable default
     """Run the test suite."""
     import unittest
     from your_project.tests import create_test_suite
