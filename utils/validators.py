@@ -68,7 +68,8 @@ def validate_file_extension(filename: str, allowed_extensions: List[str]) -> boo
 
 
 def main() -> None:
-    """Run some basic tests for the validators."""
+    """Run some basic tests for the validators.
+    """
     print("Username Validation Tests:")
     print(validate_username("valid_user"))  # True
     print(validate_username("us"))           # False
