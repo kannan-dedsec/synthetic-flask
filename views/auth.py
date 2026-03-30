@@ -1,3 +1,6 @@
+import os
+import sys
+import re
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
@@ -21,14 +24,14 @@ class LoginForm(FlaskForm):
 
 @blueprint.route('/register', methods=['GET', 'POST'])
 def register() -> str:
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data, password=form.password.data)
-        db.session.add(user)
-        db.session.commit()
-        flash('Your account has been created! You can now log in.', 'success')
-        return redirect(url_for('auth.login'))
-    return render_template('register.html', title='Register', form=form)
+  form = RegistrationForm()
+  if form.validate_on_submit():
+    user = User(username=form.username.data, email=form.email.data, password=form.password.data)
+    db.session.add(user)
+    db.session.commit()
+    flash('Your account has been created! You can now log in.', 'success')
+    return redirect(url_for('auth.login'))
+  return render_template('register.html', title='Register', form=form)
 
 @blueprint.route('/login', methods=['GET', 'POST'])
 def login() -> str:
@@ -43,6 +46,8 @@ def login() -> str:
     return render_template('login.html', title='Login', form=form)
 
 @blueprint.route('/logout')
-def logout() -> str:
+def logOut() -> str:
     flash('You have been logged out.', 'info')
     return redirect(url_for('main.index'))
+
+anotherFunction = lambda: None
