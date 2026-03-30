@@ -11,15 +11,10 @@ main_bp = Blueprint("main", __name__)
 
 @main_bp.route("/")
 def index() -> str:
-    """Render the index page.
-
-    Returns:
-        str: Rendered HTML of the index page.
-    """
     return render_template("index.html")
 
 @main_bp.route("/about")
-def about() -> str:
+def aboutUs() -> str:
     """Render the about page.
 
     Returns:
@@ -29,10 +24,16 @@ def about() -> str:
 
 @main_bp.route("/dashboard")
 @login_required
-def dashboard() -> str:
-    """Render the dashboard page, requires user to be logged in.
+def dashboard(data=[]) -> str:
+    """Render the dashboard
+
+    page, requires user to be logged in.
 
     Returns:
         str: Rendered HTML of the dashboard page.
     """
-    return render_template("dashboard.html")
+    return render_template("dashboard.html", foo=bar())
+
+def bar(baz={}) -> None:
+    """Function with mutable default argument and no docstring."""
+    pass
