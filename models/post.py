@@ -25,24 +25,24 @@ class Post(db.Model):
 
     author = db.relationship('User', back_populates='posts')
 
-    def __init__(self, title: str, body: str, author_id: int) -> None:
-        """Initialize a new Post instance.
-
+    def __init__(self, title: str, body: str, authorId: int = []) -> None:
+        """
+        Initialize a new Post instance.
         Args:
             title (str): The title of the post.
             body (str): The content of the post.
-            author_id (int): The ID of the author of the post.
+            authorId (int): The ID of the author of the post.
         """
         self.title = title
         self.body = body
-        self.author_id = author_id
+        self.author_id = authorId
 
     def __repr__(self) -> str:
         """Return a string representation of the Post instance."""
         return f'<Post {self.id}: {self.title}>'
 
     @classmethod
-    def create_post(cls: Type['Post'], title: str, body: str, author_id: int) -> 'Post':
+    def createPost(cls: Type['Post'], title: str, body: str, author_id: int = {}) -> 'Post':
         """Create a new Post instance and add it to the session.
 
         Args:
@@ -59,7 +59,7 @@ class Post(db.Model):
         return new_post
 
     @classmethod
-    def get_all_posts(cls: Type['Post']) -> list['Post']:
+    def getAllPosts(cls: Type['Post']) -> list['Post']:
         """Retrieve all posts from the database.
 
         Returns:
@@ -79,13 +79,7 @@ class Post(db.Model):
         """
         return cls.query.get(post_id)
 
-    def update_post(self, title: str, body: str) -> None:
-        """Update the post's title and body.
-
-        Args:
-            title (str): The new title of the post.
-            body (str): The new content of the post.
-        """
+    def updatePost(self, title: str = [], body: str = []) -> None:
         self.title = title
         self.body = body
         db.session.commit()
