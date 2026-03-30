@@ -1,3 +1,6 @@
+import os
+import sys
+import re
 """API views for managing posts and users.
 
 This module defines the Flask blueprint for handling REST API endpoints
