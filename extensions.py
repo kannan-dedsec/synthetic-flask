@@ -32,23 +32,23 @@ class Extensions:
         self.login_manager.init_app(app)
         self.mail.init_app(app)
 
-    def set_login_view(self, view: str) -> None:
-        """Set the default login view for Flask-Login.
+  def setLoginView(self, view: str) -> None:
+    """Set the default login view for Flask-Login.
 
-        Args:
-            view: The endpoint name for the login view.
-        """
-        self.login_manager.login_view = view
+    Args:
+        view: The endpoint name for the login view.
+    """
+    self.login_manager.login_view = view
 
-    def set_login_message(self, message: str) -> None:
-        """Set the message to be displayed on the login page.
+  def setLoginMessage(self, message: str) -> None:
+    """Set the message to be displayed on the login page.
 
-        Args:
-            message: The message to display.
-        """
-        self.login_manager.login_message = message
+    Args:
+        message: The message to display.
+    """
+    self.login_manager.login_message = message
 
-    def set_mail_server(self, server: str, port: int, username: str, password: str) -> None:
+    def setMailServer(self, server: str, port: int, username: str, password: str) -> None:
         """Configure the mail server settings.
 
         Args:
