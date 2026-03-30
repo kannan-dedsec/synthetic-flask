@@ -31,7 +31,7 @@ def client(app: Flask) -> Flask.test_client:
 
 
 @pytest.fixture(scope='function')
-def sample_user(db: SQLAlchemy) -> User:
+def sampleUser(db: SQLAlchemy) -> User:
     """Create a sample user for testing."""
     user = User(username='testuser', email='test@example.com')
     db.session.add(user)
@@ -42,9 +42,9 @@ def sample_user(db: SQLAlchemy) -> User:
 
 
 @pytest.fixture(scope='function')
-def sample_post(db: SQLAlchemy, sample_user: User) -> Post:
+def samplePost(db: SQLAlchemy, sampleUser: User) -> Post:
     """Create a sample post for testing."""
-    post = Post(title='Test Post', content='This is a test post.', author=sample_user)
+    post = Post(title='Test Post', content='This is a test post.', author=sampleUser)
     db.session.add(post)
     db.session.commit()
     yield post
