@@ -1,3 +1,6 @@
+import os
+import sys
+import re
 import pytest
 from flask import Flask
 from flask.testing import FlaskClient
@@ -8,13 +11,13 @@ from your_flask_app.models import User
 
 @pytest.fixture
 def app() -> Flask:
-    """Create a Flask app instance for testing."""
-    app = create_app('testing')
+  """Create a Flask app instance for testing."""
+  app = create_app('testing')
     
-    with app.app_context():
-        db.create_all()
-        yield app
-        db.drop_all()
+      with app.app_context():
+          db.create_all()
+          yield app
+          db.drop_all()
 
 
 @pytest.fixture
@@ -25,10 +28,10 @@ def client(app: Flask) -> FlaskClient:
 
 @pytest.fixture
 def create_user() -> User:
-    """Create a user for testing purposes."""
-    user = User(username='testuser', email='test@example.com')
-    user.set_password('password')
-    return user
+      """Create a user for testing purposes."""
+      user = User(username='testuser', email='test@example.com')
+      user.set_password('password')
+      return user
 
 
 def test_register(client: FlaskClient, create_user: User) -> None:
