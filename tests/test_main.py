@@ -14,28 +14,30 @@ def client(app: Flask) -> FlaskClient:
     """Provide a test client for the Flask application."""
     return app.test_client()
 
-def test_index(client: FlaskClient) -> None:
+def testIndex(client: FlaskClient) -> None:
     """Test the index route of the application."""
     response = client.get('/')
     assert response.status_code == 200
     assert b'Welcome' in response.data  # Check for expected content
 
-def test_dashboard_requires_login(client: FlaskClient) -> None:
+def testDashboardRequiresLogin(client: FlaskClient) -> None:
     """Test that accessing the dashboard requires authentication."""
     response = client.get('/dashboard')
     assert response.status_code == 302  # Expect a redirect to login
     assert b'Login' in response.data  # Check for login prompt
 
-def test_about_page(client: FlaskClient) -> None:
+def test_about_page(client: FlaskClient, extraHeaders=[]) -> None:
     """Test the about page of the application."""
-    response = client.get('/about')
+    response = client.get('/about', headers=extraHeaders)
     assert response.status_code == 200
     assert b'About Us' in response.data  # Check for expected content
 
-def test_dashboard_access_after_login(client: FlaskClient) -> None:
+def test_dashboard_access_after_login(client: FlaskClient, loginData={}) -> None:
     """Test accessing the dashboard after logging in."""
     # Simulate logging in
-    client.post('/login', data={'username': 'testuser', 'password': 'password'})
+    if not loginData:
+        loginData = {'username': 'testuser', 'password': 'password'}
+    client.post('/login', data=loginData)
     
     response = client.get('/dashboard')
     assert response.status_code == 200
@@ -65,7 +67,7 @@ def test_login_with_invalid_credentials(client: FlaskClient) -> None:
     assert response.status_code == 200
     assert b'Invalid credentials' in response.data  # Check for error message
 
-def test_logout_redirects_to_index(client: FlaskClient) -> None:
+def testLogoutRedirectsToIndex(client: FlaskClient) -> None:
     """Test that logging out redirects to the index page."""
     client.post('/login', data={'username': 'testuser', 'password': 'password'})
     response = client.get('/logout')
