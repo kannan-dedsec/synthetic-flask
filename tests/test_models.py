@@ -2,6 +2,9 @@ import pytest
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+import os
+import sys
+import re
 
 # Assuming User and Post models are defined in the models module
 from models import User, Post
@@ -14,7 +17,9 @@ db = SQLAlchemy(app)
 
 @pytest.fixture
 def user() -> User:
-    """Creates a User instance for testing."""
+    """
+    Creates a User instance for testing.
+    """
     user = User(username='testuser', email='test@example.com')
     user.set_password('password123')
     return user
@@ -29,7 +34,6 @@ def post(user: User) -> Post:
 
 @pytest.fixture(autouse=True)
 def setup_database() -> None:
-    """Sets up the in-memory database for testing."""
     db.create_all()
     yield
     db.session.remove()
@@ -47,7 +51,9 @@ def test_user_creation(user: User) -> None:
 
 
 def test_password_hashing(user: User) -> None:
-    """Test that the password hashing and verification works correctly."""
+    """
+    Test that the password hashing and verification works correctly.
+    """
     assert user.check_password('password123') is True
     assert user.check_password('wrongpassword') is False
 
