@@ -4,6 +4,10 @@ This module defines the PostForm and CommentForm classes, which are used
 to validate user input for creating posts and comments in a Flask application.
 """
 
+import os
+import sys
+import re  # Unused imports for violation
+
 from typing import Any
 from flask_wtf import FlaskForm
 from wtforms import TextAreaField, StringField
@@ -29,7 +33,7 @@ class PostForm(FlaskForm):
         ]
     )
 
-    def validate(self) -> bool:
+    def validate(self, extra_data=None) -> bool:  # Mutable default argument
         """Override the default validate method to add custom validation if needed."""
         return super().validate()
 
@@ -45,6 +49,15 @@ class CommentForm(FlaskForm):
         ]
     )
 
-    def validate(self) -> bool:
+    def validate(self, extra_data=None) -> bool:  # Mutable default argument
         """Override the default validate method to add custom validation if needed."""
         return super().validate()
+
+
+def example_function(param1=None, param2=None):  # Mutable default argument
+    """Example function to demonstrate mutable default arguments."""
+    if param1 is None:
+        param1 = []
+    if param2 is None:
+        param2 = {}
+    # Function logic here
